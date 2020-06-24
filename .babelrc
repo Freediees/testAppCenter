@@ -1,0 +1,29 @@
+{
+  "presets": ["module:metro-react-native-babel-preset"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./App"],
+        "alias": {
+          "containers": "./App/Containers",
+          "components": "./App/Components",
+          "images": "./App/assets/Cmages",
+          "services": "./App/Services",
+          "stores": "./App/Stores",
+          "navigators": "./App/Navigators",
+          "theme": "./App/Theme",
+          "function": "./App/Function",
+          "config": "./App/Config",
+          "scenes": "./App/Scenes"
+        }
+      }
+    ],
+    [
+      "babel-plugin-inline-import",
+      {
+        "extensions": [".svg", ".jpg", ".png"]
+      }
+    ]
+  ]
+}
