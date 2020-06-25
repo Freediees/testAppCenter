@@ -6,14 +6,12 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Picker,
 } from 'react-native';
 import {Colors} from 'theme';
 import PropTypes from 'prop-types';
 
 const ShowData = ({data, keyID, onChangeID}) => {
-  //const [keyID, setKeyId] = useState();
-  console.log('KEY:', keyID);
-
   const renderItem = item => {
     return (
       <TouchableOpacity

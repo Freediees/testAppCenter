@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -10,13 +10,21 @@ import {
 import {Colors} from 'theme';
 import PropTypes from 'prop-types';
 
-const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
+const ModalInsert = ({
+  visible,
+  toggleModalInsert,
+  onInsertData,
+  payload,
+  statusProcess,
+  onUpdateData,
+}) => {
   const [noContainer, setNoContainer] = useState('');
   const [size, setSize] = useState('Small');
   const [type, setType] = useState('Type A');
   const [slot, setSlot] = useState('');
   const [row, setRow] = useState('');
   const [tier, setTier] = useState('');
+  const [itemId, setItemID] = useState('');
 
   const onCancel = () => {
     setNoContainer('');
@@ -29,20 +37,53 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
   };
 
   const onSubmit = () => {
-    const payload = {
-      noContainer,
-      size,
-      type,
-      slot,
-      row,
-      tier,
-    };
+    console.log('wow: ', payload);
+    if (statusProcess == 'insert') {
+      const payload = {
+        noContainer,
+        size,
+        type,
+        slot,
+        row,
+        tier,
+      };
 
-    onInsertData(payload);
+      onInsertData(payload);
+    } else if (statusProcess == 'update') {
+      const payload = {
+        item_id: itemId,
+        noContainer,
+        size,
+        type,
+        slot,
+        row,
+        tier,
+      };
+
+      onUpdateData(payload);
+    }
+  };
+
+  const onShow = () => {
+    if (statusProcess == 'update') {
+      setItemID(payload.item_id);
+      setNoContainer(payload.no_container);
+      setSize(payload.size);
+      setType(payload.type);
+      setSlot(JSON.stringify(payload.slot));
+      setRow(JSON.stringify(payload.row));
+      setTier(JSON.stringify(payload.tier));
+    }
   };
 
   return (
-    <Modal visible={visible} animationType={'slide'} transparent>
+    <Modal
+      visible={visible}
+      animationType={'slide'}
+      transparent
+      onShow={() => {
+        onShow();
+      }}>
       <View
         style={{
           flex: 1,
@@ -58,8 +99,9 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
             padding: 16,
             borderRadius: 8,
           }}>
-          <Text>No.Container</Text>
+          <Text style={{color: Colors.amber}}>No.Container</Text>
           <TextInput
+            value={noContainer}
             onChangeText={text => {
               setNoContainer(text);
             }}
@@ -68,8 +110,9 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
             style={{borderBottomWidth: 0.5, marginBottom: 4, marginLeft: 8}}
           />
 
-          <Text>Size</Text>
+          <Text style={{color: Colors.amber}}>Size</Text>
           <Picker
+            value={size}
             selectedValue={size}
             style={{height: 50, width: 150}}
             onValueChange={(itemValue, itemIndex) => setSize(itemValue)}>
@@ -78,8 +121,9 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
             <Picker.Item label={'Large'} value="Large" />
           </Picker>
 
-          <Text>Type</Text>
+          <Text style={{color: Colors.amber}}>Type</Text>
           <Picker
+            value={type}
             selectedValue={type}
             style={{height: 50, width: 150}}
             onValueChange={(itemValue, itemIndex) => setType(itemValue)}>
@@ -88,8 +132,9 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
             <Picker.Item label={'Type C'} value="Type C" />
           </Picker>
 
-          <Text>Slot</Text>
+          <Text style={{color: Colors.amber}}>Slot</Text>
           <TextInput
+            value={slot}
             onChangeText={text => {
               setSlot(text);
             }}
@@ -98,8 +143,9 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
             style={{borderBottomWidth: 0.5, marginBottom: 4, marginLeft: 8}}
           />
 
-          <Text>Row</Text>
+          <Text style={{color: Colors.amber}}>Row</Text>
           <TextInput
+            value={row}
             onChangeText={text => {
               setRow(text);
             }}
@@ -108,8 +154,9 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
             style={{borderBottomWidth: 0.5, marginBottom: 4, marginLeft: 8}}
           />
 
-          <Text>Tier</Text>
+          <Text style={{color: Colors.amber}}>Tier</Text>
           <TextInput
+            value={tier}
             onChangeText={text => {
               setTier(text);
             }}
@@ -165,9 +212,19 @@ const ModalInsert = ({visible, toggleModalInsert, onInsertData}) => {
 
 ModalInsert.defaultProps = {
   visible: false,
+  payload: {
+    item_id: '',
+    noContainer: '',
+    size: 'Small',
+    type: 'Type 1',
+    slot: '',
+    row: '',
+    tier: '',
+  },
 };
 
 ModalInsert.propTypes = {
   visible: PropTypes.bool,
+  payload: PropTypes.object,
 };
 export default ModalInsert;

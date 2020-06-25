@@ -18,16 +18,20 @@ const HomeScreen = ({
   modalUpdate,
   toggleModalInsert,
   onInsertData,
+  statusProcess,
+  payload,
+  onUpdateData,
+  cariDataValue,
+  cariData,
 }) => {
-  useEffect(() => {
-    async function initialize() {}
-    initialize();
-  }, []);
-
   return (
     <View
       style={{flex: 1, alignItems: 'center', justifyContent: 'space-between'}}>
-      <DefaultHeader title={'Item Management System'} />
+      <DefaultHeader
+        title={'Item Management System'}
+        cariDataValue={cariDataValue}
+        cariData={cariData}
+      />
       <View style={{flex: 1, width: '100%'}}>
         <ShowData data={data} keyID={keyID} onChangeID={onChangeID} />
       </View>
@@ -40,6 +44,9 @@ const HomeScreen = ({
         visible={modalInsert}
         toggleModalInsert={toggleModalInsert}
         onInsertData={onInsertData}
+        statusProcess={statusProcess}
+        payload={payload}
+        onUpdateData={onUpdateData}
       />
     </View>
   );
