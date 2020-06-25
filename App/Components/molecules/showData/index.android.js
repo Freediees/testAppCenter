@@ -25,7 +25,7 @@ const ShowData = ({data, keyID, onChangeID}) => {
           padding: 16,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          backgroundColor: item.item_id == keyID ? Colors.yellow : 'white',
+          backgroundColor: item.item_id == keyID ? Colors.grey : 'white',
         }}>
         <Text style={[styles.itemText, {flex: 2}]}>{item.no_container}</Text>
         <Text style={[styles.itemText, {flex: 1}]}>{item.size}</Text>

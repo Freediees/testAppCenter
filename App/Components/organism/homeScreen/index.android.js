@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import DefaultHeader from 'components/molecules/defaultHeader';
 import DefaultFooter from 'components/molecules/defaultFooter';
 import ShowData from 'components/molecules/showData';
+import ModalInsert from 'components/molecules/modalInsert';
 
 const HomeScreen = ({
   title,
@@ -13,8 +14,16 @@ const HomeScreen = ({
   data,
   keyID,
   onChangeID,
+  modalInsert,
+  modalUpdate,
+  toggleModalInsert,
+  onInsertData,
 }) => {
-  console.log('homekey:', keyID);
+  useEffect(() => {
+    async function initialize() {}
+    initialize();
+  }, []);
+
   return (
     <View
       style={{flex: 1, alignItems: 'center', justifyContent: 'space-between'}}>
@@ -27,6 +36,11 @@ const HomeScreen = ({
         onUpdate={onUpdate}
         onDelete={onDelete}
       />
+      <ModalInsert
+        visible={modalInsert}
+        toggleModalInsert={toggleModalInsert}
+        onInsertData={onInsertData}
+      />
     </View>
   );
 };
@@ -36,6 +50,8 @@ HomeScreen.defaultProps = {
   data: [],
   keyID: null,
   onChangeID: () => {},
+  modalInsert: false,
+  modalUpdate: false,
 };
 
 HomeScreen.propTypes = {
@@ -43,6 +59,8 @@ HomeScreen.propTypes = {
   data: PropTypes.array,
   keyID: PropTypes.number,
   onChangeID: PropTypes.func,
+  modalInsert: PropTypes.bool,
+  modalUpdate: PropTypes.bool,
 };
 
 export default HomeScreen;

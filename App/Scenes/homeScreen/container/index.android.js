@@ -7,17 +7,40 @@ var db = openDatabase({name: 'ItemDatabase.db'});
 const Home = () => {
   const [item, setItem] = useState([]);
   const [keyID, setKeyID] = useState();
+  const [modalInsert, setModalInsert] = useState(false);
+  const [modalUpdate, setModalUpdate] = useState(false);
+
+  const toggleModalInsert = () => {
+    setModalInsert(!modalInsert);
+  };
+
+  const toggleModalUpdate = () => {
+    setModalUpdate(!modalUpdate);
+  };
 
   const onInsert = () => {
+    toggleModalInsert();
+  };
+
+  const onInsertData = payload => {
+    console.log('payload: ', payload);
+    toggleModalInsert();
     db.transaction(function(tx) {
       tx.executeSql(
         'INSERT INTO table_item (no_container, size, type, slot, row, tier ) VALUES (?,?,?,?,?,?)',
-        ['Container 2', 20, 'Wet', 15, 7, 7],
+        [
+          payload.noContainer,
+          payload.size,
+          payload.type,
+          payload.slot,
+          payload.row,
+          payload.tier,
+        ],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
             refreshData();
-            Alert.alert('Success', 'You are Registered Successfully');
+            Alert.alert('Success', 'Item Registered Successfully');
           } else {
             alert('Registration Failed');
           }
@@ -35,9 +58,9 @@ const Home = () => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
             refreshData();
-            Alert.alert('Success', 'User deleted successfully');
+            Alert.alert('Success', 'Item deleted successfully');
           } else {
-            alert('Please insert a valid User Id');
+            alert('Please insert a valid Item ID');
           }
         },
       );
@@ -123,6 +146,10 @@ const Home = () => {
       data={item}
       keyID={keyID}
       onChangeID={onSelectItem}
+      modalInsert={modalInsert}
+      modalUpdate={modalUpdate}
+      toggleModalInsert={toggleModalInsert}
+      onInsertData={onInsertData}
     />
   );
 };
