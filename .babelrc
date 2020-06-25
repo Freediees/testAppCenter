@@ -8,7 +8,7 @@
         "alias": {
           "containers": "./App/Containers",
           "components": "./App/Components",
-          "images": "./App/assets/Cmages",
+          "images": "./App/assets/Images",
           "services": "./App/Services",
           "stores": "./App/Stores",
           "navigators": "./App/Navigators",
