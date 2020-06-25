@@ -4,14 +4,9 @@ import HomeScreen from 'components/organism/homeScreen/';
 import {openDatabase} from 'react-native-sqlite-storage';
 var db = openDatabase({name: 'ItemDatabase.db'});
 
-const data = [
-  {title: 'Ferdi Rahman', title: 'React Native Developer'},
-  {title: 'James', title: 'IOS Developer'},
-];
-
 const Home = () => {
   const [item, setItem] = useState([]);
-  console.log('item: ', item);
+  const [keyID, setKeyID] = useState();
 
   const onInsert = () => {
     db.transaction(function(tx) {
@@ -35,7 +30,7 @@ const Home = () => {
     db.transaction(tx => {
       tx.executeSql(
         'DELETE FROM  table_item where item_id=?',
-        [2],
+        [keyID],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           if (results.rowsAffected > 0) {
@@ -63,6 +58,11 @@ const Home = () => {
         setItem(temp);
       });
     });
+  };
+
+  const onSelectItem = value => {
+    console.log('valueKey:', value);
+    setKeyID(value.item_id);
   };
 
   useEffect(() => {
@@ -121,6 +121,8 @@ const Home = () => {
       onUpdate={onUpdate}
       onDelete={onDelete}
       data={item}
+      keyID={keyID}
+      onChangeID={onSelectItem}
     />
   );
 };

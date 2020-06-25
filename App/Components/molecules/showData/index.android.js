@@ -10,14 +10,15 @@ import {
 import {Colors} from 'theme';
 import PropTypes from 'prop-types';
 
-const ShowData = ({data}) => {
-  const [keyID, setKeyId] = useState();
+const ShowData = ({data, keyID, onChangeID}) => {
+  //const [keyID, setKeyId] = useState();
+  console.log('KEY:', keyID);
 
   const renderItem = item => {
     return (
       <TouchableOpacity
         onPress={() => {
-          setKeyId(item.item_id);
+          onChangeID(item);
         }}
         style={{
           borderBottomWidth: 0.5,
