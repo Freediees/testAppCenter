@@ -7,19 +7,28 @@ import ic_minus from 'images/minus.svg';
 import ic_plus from 'images/plus.svg';
 import ic_edit from 'images/edit.svg';
 
-const DefaultFooter = () => {
+const DefaultFooter = ({onDelete, onUpdate, onInsert}) => {
   return (
     <View style={{width: '100%', padding: 8, backgroundColor: Colors.orange}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <TouchableOpacity
+          onPress={() => {
+            onDelete();
+          }}
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <SvgXml xml={ic_minus} width={30} height={30} />
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => {
+            onUpdate();
+          }}
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <SvgXml xml={ic_edit} width={30} height={30} />
         </TouchableOpacity>
         <TouchableOpacity
+          onPress={() => {
+            onInsert();
+          }}
           style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <SvgXml xml={ic_plus} width={30} height={30} />
         </TouchableOpacity>
@@ -28,4 +37,15 @@ const DefaultFooter = () => {
   );
 };
 
+DefaultFooter.defaultProps = {
+  onInsert: () => {},
+  onUpdate: () => {},
+  onDelete: () => {},
+};
+
+DefaultFooter.propTypes = {
+  onInsert: PropTypes.func,
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func,
+};
 export default DefaultFooter;
