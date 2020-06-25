@@ -9,7 +9,7 @@ import ic_edit from 'images/edit.svg';
 
 const DefaultFooter = ({onDelete, onUpdate, onInsert}) => {
   return (
-    <View style={{width: '100%', padding: 8, backgroundColor: Colors.orange}}>
+    <View style={{width: '100%', padding: 8, backgroundColor: Colors.amber}}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <TouchableOpacity
           onPress={() => {

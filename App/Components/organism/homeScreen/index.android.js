@@ -9,7 +9,7 @@ const HomeScreen = ({title, onInsert, onUpdate, onDelete, data}) => {
   return (
     <View
       style={{flex: 1, alignItems: 'center', justifyContent: 'space-between'}}>
-      <DefaultHeader title={'Hello world'} />
+      <DefaultHeader title={'Item Management System'} />
       <View style={{flex: 1, width: '100%'}}>
         <ShowData data={data} />
       </View>

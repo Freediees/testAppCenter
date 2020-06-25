@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const DefaultHeader = ({title}) => {
   return (
-    <View style={{width: '100%', padding: 16, backgroundColor: Colors.orange}}>
+    <View style={{width: '100%', padding: 16, backgroundColor: Colors.amber}}>
       <Text style={{fontSize: 20, color: 'white'}}>{title}</Text>
       <TextInput
         placeholder={'Cari'}

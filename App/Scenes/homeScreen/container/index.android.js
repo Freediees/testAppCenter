@@ -4,18 +4,6 @@ import HomeScreen from 'components/organism/homeScreen/';
 import {openDatabase} from 'react-native-sqlite-storage';
 var db = openDatabase({name: 'ItemDatabase.db'});
 
-const onInsert = () => {
-  alert('Insert');
-};
-
-const onDelete = () => {
-  alert('Delete');
-};
-
-const onUpdate = () => {
-  alert('update');
-};
-
 const data = [
   {title: 'Ferdi Rahman', title: 'React Native Developer'},
   {title: 'James', title: 'IOS Developer'},
@@ -24,6 +12,58 @@ const data = [
 const Home = () => {
   const [item, setItem] = useState([]);
   console.log('item: ', item);
+
+  const onInsert = () => {
+    db.transaction(function(tx) {
+      tx.executeSql(
+        'INSERT INTO table_item (no_container, size, type, slot, row, tier ) VALUES (?,?,?,?,?,?)',
+        ['Container 2', 20, 'Wet', 15, 7, 7],
+        (tx, results) => {
+          console.log('Results', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            refreshData();
+            Alert.alert('Success', 'You are Registered Successfully');
+          } else {
+            alert('Registration Failed');
+          }
+        },
+      );
+    });
+  };
+
+  const onDelete = () => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'DELETE FROM  table_item where item_id=?',
+        [2],
+        (tx, results) => {
+          console.log('Results', results.rowsAffected);
+          if (results.rowsAffected > 0) {
+            refreshData();
+            Alert.alert('Success', 'User deleted successfully');
+          } else {
+            alert('Please insert a valid User Id');
+          }
+        },
+      );
+    });
+  };
+
+  const onUpdate = () => {
+    alert('update');
+  };
+
+  const refreshData = () => {
+    db.transaction(tx => {
+      tx.executeSql('SELECT * FROM table_item', [], (tx, results) => {
+        var temp = [];
+        for (let i = 0; i < results.rows.length; ++i) {
+          temp.push(results.rows.item(i));
+        }
+        setItem(temp);
+      });
+    });
+  };
 
   useEffect(() => {
     async function initialize() {
@@ -80,7 +120,7 @@ const Home = () => {
       onInsert={onInsert}
       onUpdate={onUpdate}
       onDelete={onDelete}
-      data={data}
+      data={item}
     />
   );
 };
