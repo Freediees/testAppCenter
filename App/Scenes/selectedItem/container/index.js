@@ -1,51 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {View, FlatList, Text, TouchableOpacity} from 'react-native';
 import DefaultHeader from 'components/molecules/defaultHeader';
 import ButtonFooter from 'components/molecules/buttonFooter';
-import PropTypes from 'prop-types';
 import {Colors} from 'theme';
 
-const JoinPrintScreen = ({data, onSubmit}) => {
-  const [selected, setSelected] = useState([]);
-  const [status, setStatus] = useState(false);
+const SelectedItem = ({navigation}) => {
+  const {params} = navigation.state;
+  console.log(params);
 
-  const onFooterPress = () => {
-    onSubmit(selected);
-  };
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    for (var i = 0; i < data.length; i++) {
-      var temp = selected;
-      temp[i] = 0;
-      setSelected(temp);
+    var temp = [];
+    for (var i = 0; i < params.value.data.length; i++) {
+      if (params.value.payload[i] == 1) {
+        temp.push(params.value.data[i]);
+      }
     }
-
-    console.log(selected);
+    setData(temp);
   }, []);
-
-  const onSelect = index => {
-    console.log(index);
-    var temp = selected;
-    if (temp[index] == 0) {
-      temp[index] = 1;
-    } else {
-      temp[index] = 0;
-    }
-    setSelected(temp);
-    setStatus(!status);
-    console.log(selected);
-  };
 
   const renderItem = (item, index) => {
     return (
       <TouchableOpacity
-        onPress={() => {
-          onSelect(index);
-        }}
         style={{
           padding: 16,
           width: '100%',
-          backgroundColor: selected[index] == 0 ? Colors.lime : Colors.green,
+          backgroundColor: Colors.lime,
           margin: 8,
         }}>
         <Text style={{fontSize: 13, color: Colors.white}}>
@@ -60,6 +41,7 @@ const JoinPrintScreen = ({data, onSubmit}) => {
       </TouchableOpacity>
     );
   };
+
   return (
     <View style={{flex: 1}}>
       <DefaultHeader title={'JoinPrint'} />
@@ -71,21 +53,13 @@ const JoinPrintScreen = ({data, onSubmit}) => {
         />
       </View>
       <ButtonFooter
-        label={'Submit'}
+        label={'Back'}
         onPress={() => {
-          onFooterPress();
+          navigation.goBack();
         }}
       />
     </View>
   );
 };
 
-JoinPrintScreen.defaultProps = {
-  data: [],
-};
-
-JoinPrintScreen.propTypes = {
-  data: PropTypes.array,
-};
-
-export default JoinPrintScreen;
+export default SelectedItem;

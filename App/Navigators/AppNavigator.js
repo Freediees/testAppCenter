@@ -6,6 +6,7 @@ import HomeScreen from 'scenes/homeScreen/container';
 import GradanaScreen from 'scenes/gradana/container';
 import TaskScreen from 'scenes/task/container';
 import JoinPrint from 'scenes/joinPrint/container';
+import SelectedItemScreen from 'scenes/selectedItem/container';
 
 /**
  * The root screen contains the application's navigation.
@@ -20,6 +21,7 @@ const StackNavigator = createStackNavigator(
     // The main application screen is our "ExampleScreen". Feel free to replace it with your
     // own screen and remove the example.
     MainScreen: JoinPrint,
+    SelectedItem: SelectedItemScreen,
     Task: TaskScreen,
     Home: HomeScreen,
   },
