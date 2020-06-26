@@ -7,13 +7,13 @@ const DefaultHeader = ({title, cariData, cariDataValue}) => {
   return (
     <View style={{width: '100%', padding: 16, backgroundColor: Colors.amber}}>
       <Text style={{fontSize: 20, color: 'white'}}>{title}</Text>
-      <TextInput
+      {/* <TextInput
         value={cariDataValue}
         onChangeText={text => cariData(text)}
         placeholder={'Search Container Number'}
         placeholderTextColor={Colors.light_grey}
         style={{borderBottomWidth: 1, borderColor: 'white', color: 'white'}}
-      />
+      /> */}
     </View>
   );
 };
