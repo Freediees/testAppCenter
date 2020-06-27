@@ -44,13 +44,20 @@ const SelectedItem = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <DefaultHeader title={'JoinPrint'} />
+      <DefaultHeader title={'Selected Item'} />
       <View style={{padding: 16, flex: 1}}>
-        <FlatList
-          data={data}
-          renderItem={({item, index}) => renderItem(item, index)}
-          //keyExtractor={item => item.id}
-        />
+        {data && data.length > 0 ? (
+          <FlatList
+            data={data}
+            renderItem={({item, index}) => renderItem(item, index)}
+            //keyExtractor={item => item.id}
+          />
+        ) : (
+          <View
+            style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <Text>Selected Item Empty</Text>
+          </View>
+        )}
       </View>
       <ButtonFooter
         label={'Back'}

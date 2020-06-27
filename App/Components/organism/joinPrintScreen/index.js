@@ -108,15 +108,22 @@ const JoinPrintScreen = ({listData, onSubmit}) => {
     <View style={{flex: 1}}>
       <DefaultHeader title={'JoinPrint'} />
       <View style={{padding: 16, flex: 1}}>
-        <FlatList
-          data={data}
-          renderItem={({item, index}) => renderItem(item, index)}
-          onEndReached={() => {
-            fetchNewData();
-          }}
-          onEndReachedThreshold={0.5}
-          //keyExtractor={item => item.id}
-        />
+        {data && data.length > 0 ? (
+          <FlatList
+            data={data}
+            renderItem={({item, index}) => renderItem(item, index)}
+            onEndReached={() => {
+              fetchNewData();
+            }}
+            onEndReachedThreshold={0.5}
+            //keyExtractor={item => item.id}
+          />
+        ) : (
+          <View
+            style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+            <Text>Network Error</Text>
+          </View>
+        )}
       </View>
       <ButtonFooter
         label={'Submit'}

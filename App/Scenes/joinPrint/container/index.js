@@ -5,22 +5,25 @@ import {connect} from 'react-redux';
 import JoinAction from '../store/action';
 
 const JoinPrint = ({dataJoin, fetchData, navigation}) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [listData, setListData] = useState();
 
   const onSubmit = (data, selected) => {
-    navigation.navigate('SelectedItem', {data: data, selected: selected});
+    navigation.navigate('SelectedItem', {
+      data: data || [],
+      selected: selected || 1,
+    });
   };
 
   useEffect(() => {
     const initialize = async () => {
       //console.log(dataJoin);
-      fetchData(page);
+      const a = await fetchData(page);
     };
     initialize();
   }, []);
 
-  //console.log(dataJoin);
+  console.log(dataJoin.dataJoin);
   return (
     <View style={{flex: 1}}>
       <JoinPrintScreen listData={dataJoin.dataJoin} onSubmit={onSubmit} />
