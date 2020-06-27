@@ -6,15 +6,15 @@ import {Colors} from 'theme';
 
 const SelectedItem = ({navigation}) => {
   const {params} = navigation.state;
-  console.log(params);
+  //console.log(params);
 
   const [data, setData] = useState([]);
 
   useEffect(() => {
     var temp = [];
-    for (var i = 0; i < params.value.data.length; i++) {
-      if (params.value.payload[i] == 1) {
-        temp.push(params.value.data[i]);
+    for (var i = 0; i < params.data.length; i++) {
+      if (params.selected[i] == 1) {
+        temp.push(params.data[i]);
       }
     }
     setData(temp);

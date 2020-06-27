@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getToken = async () => {
-  //console.log('masuk get token');
+  console.log('masuk get token');
   const url = 'https://aperp-api-dev.myres.cc/api/v1/oauth/token';
   const newPayload = {
     grant_type: 'password',

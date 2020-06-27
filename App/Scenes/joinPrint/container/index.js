@@ -8,19 +8,13 @@ const JoinPrint = ({dataJoin, fetchData, navigation}) => {
   const [page, setPage] = useState(1);
   const [listData, setListData] = useState();
 
-  const onSubmit = payload => {
-    //alert('submited');
-    console.log(payload);
-    const newPayload = {
-      payload,
-      data: dataJoin.dataJoin,
-    };
-    navigation.navigate('SelectedItem', {value: newPayload});
+  const onSubmit = (data, selected) => {
+    navigation.navigate('SelectedItem', {data: data, selected: selected});
   };
 
   useEffect(() => {
     const initialize = async () => {
-      console.log(dataJoin);
+      //console.log(dataJoin);
       fetchData(page);
     };
     initialize();
@@ -29,7 +23,7 @@ const JoinPrint = ({dataJoin, fetchData, navigation}) => {
   //console.log(dataJoin);
   return (
     <View style={{flex: 1}}>
-      <JoinPrintScreen data={dataJoin.dataJoin} onSubmit={onSubmit} />
+      <JoinPrintScreen listData={dataJoin.dataJoin} onSubmit={onSubmit} />
     </View>
   );
 };

@@ -4,27 +4,72 @@ import DefaultHeader from 'components/molecules/defaultHeader';
 import ButtonFooter from 'components/molecules/buttonFooter';
 import PropTypes from 'prop-types';
 import {Colors} from 'theme';
+import axios from 'axios';
+import {getToken, getData} from 'services/dataServices';
 
-const JoinPrintScreen = ({data, onSubmit}) => {
+const JoinPrintScreen = ({listData, onSubmit}) => {
   const [selected, setSelected] = useState([]);
   const [status, setStatus] = useState(false);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
 
   const onFooterPress = () => {
-    onSubmit(selected);
+    onSubmit(data, selected);
+  };
+
+  const fetchNewData = async value => {
+    const json = await getToken();
+    const token = json.data.access_token;
+
+    const newPayload = {
+      token: `Bearer ${token}`,
+      page: page + 1,
+    };
+
+    const json2 = await getData(newPayload);
+    //console.log('json2:', json2);
+
+    var temp = data;
+    var a = temp.concat(json2.data.data);
+    var b = selected.concat([
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+    ]);
+    setPage(page + 1);
+    setSelected(b);
+    setData(a);
   };
 
   useEffect(() => {
-    for (var i = 0; i < data.length; i++) {
-      var temp = selected;
-      temp[i] = 0;
-      setSelected(temp);
+    setData(listData);
+    if (listData && listData.length > 0) {
+      for (var i = 0; i < listData.length; i++) {
+        var temp = selected;
+        temp[i] = 0;
+        setSelected(temp);
+      }
     }
-
-    console.log(selected);
   }, []);
 
   const onSelect = index => {
-    console.log(index);
     var temp = selected;
     if (temp[index] == 0) {
       temp[index] = 1;
@@ -33,7 +78,6 @@ const JoinPrintScreen = ({data, onSubmit}) => {
     }
     setSelected(temp);
     setStatus(!status);
-    console.log(selected);
   };
 
   const renderItem = (item, index) => {
@@ -67,6 +111,10 @@ const JoinPrintScreen = ({data, onSubmit}) => {
         <FlatList
           data={data}
           renderItem={({item, index}) => renderItem(item, index)}
+          onEndReached={() => {
+            fetchNewData();
+          }}
+          onEndReachedThreshold={0.5}
           //keyExtractor={item => item.id}
         />
       </View>
@@ -81,11 +129,11 @@ const JoinPrintScreen = ({data, onSubmit}) => {
 };
 
 JoinPrintScreen.defaultProps = {
-  data: [],
+  listData: [],
 };
 
 JoinPrintScreen.propTypes = {
-  data: PropTypes.array,
+  listData: PropTypes.array,
 };
 
 export default JoinPrintScreen;
