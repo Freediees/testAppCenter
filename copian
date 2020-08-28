@@ -1,0 +1,9 @@
+registry=https://pkgs.dev.azure.com/aiasgdirecttest/_packaging/default_feed/npm/registry/
+always-auth=true
+//pkgs.dev.azure.com/aiasgdirecttest/_packaging/default_feed/npm/registry/:username=default_feed
+//pkgs.dev.azure.com/aiasgdirecttest/_packaging/default_feed/npm/registry/:_password="bGV0dGdzNTdxZm5jNnJqN210aWpieWZuZHhhdW9tdXRidWZ0NzdsdGt6enlpd2JxMjM3YQ=="
+//pkgs.dev.azure.com/aiasgdirecttest/_packaging/default_feed/npm/registry/:email=abc@aia.com
+//pkgs.dev.azure.com/aiasgdirecttest/_packaging/default_feed/npm/:username=default_feed
+//pkgs.dev.azure.com/aiasgdirecttest/_packaging/default_feed/npm/:_password="bGV0dGdzNTdxZm5jNnJqN210aWpieWZuZHhhdW9tdXRidWZ0NzdsdGt6enlpd2JxMjM3YQ=="
+//pkgs.dev.azure.com/aiasgdirecttest/_packaging/default_feed/npm/:email=abc@aia.com
+; end auth token
